@@ -4,7 +4,7 @@
 # Commits and installs the utility
 #
 commit_installs_utility() {
-    if [ -z "$1" ]; then
+    if [ ! -z "$1" ]; then
         echo Please, exeutes the first argumento providing the commit comment in a string.
     else
         commitnpush "$1"
