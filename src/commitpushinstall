@@ -32,7 +32,7 @@ commit_installs_utility() {
     fi
 }
 
-if [ $(which commitnpush 2> /dev/null) -ne 0 ]; then
+if ! which commitnpush > /dev/null 2>&1; then
     if [ $(which installfromalias 2> /dev/null) -ne 0 ]; then
         echo You needs the installfromalias utility to proced.
         echo Put the https://raw.githubusercontent.com/danilocgsilva/install_from_alias/master/src/installfromalias file inside the /usr/local/bin directory and assing execution permission to it.
