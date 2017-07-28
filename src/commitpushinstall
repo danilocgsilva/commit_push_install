@@ -1,0 +1,48 @@
+#!/bin/bash
+
+##
+# Commits and installs the utility
+#
+commit_installs_utility() {
+    if [ -z "$1" ]; then
+        echo Please, exeutes the first argumento providing the commit comment in a string.
+    else
+        commitnpush "$1"
+        if [ $? -ne 0 ]; then
+            echo Could not commit. Check errors above.
+            exit
+        fi
+
+        project_directory=${PWD##*/}
+        
+        if [ $(ls | grep -i ^src$) ]; then
+            src_name=src
+        elif [ $(ls | grep -i ^programfiles$) ]; then
+            src_name=programfiles
+        else
+            echo There\'s a problem: there\'s no folder source in the current directory.
+            exit
+        fi
+
+        final_program_file=$(ls $src_name | head -n 1)
+
+        installfromalias $project_directory $src_name $final_program_file
+
+        echo Success. Commited, pushed and already locally installed.
+    fi
+}
+
+if [ $(which commitnpush 2> /dev/null) -ne 0 ]; then
+    if [ $(which installfromalias 2> /dev/null) -ne 0 ]; then
+        echo You needs the installfromalias utility to proced.
+        echo Put the https://raw.githubusercontent.com/danilocgsilva/install_from_alias/master/src/installfromalias file inside the /usr/local/bin directory and assing execution permission to it.
+        exit
+    else
+        installfromalias programfiles commit_n_push commitnpush
+        commit_installs_utility
+    fi
+else
+    commit_installs_utility
+fi
+
+
