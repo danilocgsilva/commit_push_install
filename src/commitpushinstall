@@ -5,7 +5,7 @@
 #
 commit_installs_utility() {
     if [ ! -z "$1" ]; then
-        echo Please, exeutes the first argumento providing the commit comment in a string.
+        echo Please, executes the first argumento providing the commit comment in a string.
     else
         commitnpush "$1"
         if [ $? -ne 0 ]; then
@@ -39,10 +39,10 @@ if ! which commitnpush > /dev/null 2>&1; then
         exit
     else
         installfromalias programfiles commit_n_push commitnpush
-        commit_installs_utility
+        commit_installs_utility "$1"
     fi
 else
-    commit_installs_utility
+    commit_installs_utility "$1"
 fi
 
 
